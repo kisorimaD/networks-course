@@ -21,7 +21,8 @@ def add_product(name, description):
     all_products[next_id] = json.dumps({
         'id': next_id,
         'name': name,
-        'description': description
+        'description': description,
+        'icon': None
     })
 
     return all_products[next_id]
@@ -34,7 +35,8 @@ def update_product(id, update_json):
         return None
 
     product_dict = json.loads(product)
-    update_dict = json.loads(update_json)
+    update_dict = json.loads(update_json) if (isinstance(update_json, bytes) or isinstance(update_json, str)) else update_json
+    
     product_dict.update(update_dict)
     
     updated_product = json.dumps(product_dict)
